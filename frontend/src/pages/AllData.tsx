@@ -143,7 +143,7 @@ const AllData: React.FC = () => {
       try {
         return dateFormatter.format(new Date(dateString));
       } catch {
-        return "Invalid Date";
+        return "Not Get Yet";
       }
     },
     [dateFormatter]
@@ -173,7 +173,7 @@ const AllData: React.FC = () => {
       <span className="text-xs font-semibold text-gray-500 uppercase tracking-wider">
         {label}
       </span>
-      <span className="mt-1 text-base font-medium text-gray-900">
+      <span className={`mt-1 text-base font-medium text-gray-900`}>
         {isDate ? formatDate(value) : value || "—"}
       </span>
     </div>
@@ -224,7 +224,7 @@ const AllData: React.FC = () => {
           {/* Header */}
           <div className="mb-6 text-center">
             <h1 className="text-3xl sm:text-4xl font-extrabold text-gray-900 mb-3">
-              Candidate Joining Data
+              TCS Smart Candidate Joining Data
             </h1>
             <p className="text-gray-600 text-base sm:text-lg">
               Track and manage all candidate onboarding progress
@@ -243,22 +243,20 @@ const AllData: React.FC = () => {
                 label: "Active Process",
                 value: joiningData.filter((d) => !d.status.includes("REJECTED"))
                   .length,
-                color: "text-emerald-600",
-              },
-              {
-                label: "Surveys Sent",
-                value: joiningData.filter((d) => d.status.includes("SURVEY"))
-                  .length,
                 color: "text-blue-600",
               },
               {
-                label: "Recently Updated",
-                value: joiningData.filter(
-                  (d) =>
-                    new Date(d.updatedAt) >
-                    new Date(Date.now() - 24 * 60 * 60 * 1000)
+                label: "Joining Letter Accepted",
+                value: joiningData.filter((d) =>
+                  d.status.includes("JOINING_LETTER_ACCEPTED")
                 ).length,
                 color: "text-amber-600",
+              },
+              {
+                label: "Joined In TCS",
+                value: joiningData.filter((d) => d.status.includes("JOINED"))
+                  .length,
+                color: "text-emerald-600",
               },
             ].map((stat, i) => (
               <div
@@ -380,41 +378,71 @@ const AllData: React.FC = () => {
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                         <DataField
                           label="Interview Date"
-                          value={item.interviewDate}
+                          value={
+                            item.interviewDate !== null
+                              ? item.interviewDate
+                              : ""
+                          }
                           isDate
                         />
                         <DataField
                           label="Interview Location"
-                          value={item.interviewLocation}
+                          value={
+                            item.interviewLocation !== null
+                              ? item.interviewLocation
+                              : ""
+                          }
                         />
                         <DataField
                           label="Offer Letter Date"
-                          value={item.offerLetterDate}
+                          value={
+                            item.offerLetterDate !== null
+                              ? item.offerLetterDate
+                              : ""
+                          }
                           isDate
                         />
                         <DataField
                           label="1st Survey"
-                          value={item.firstSurveyMailDate}
+                          value={
+                            item.firstSurveyMailDate !== null
+                              ? item.firstSurveyMailDate
+                              : ""
+                          }
                           isDate
                         />
                         <DataField
                           label="2nd Survey"
-                          value={item.secondSurveyMailDate}
+                          value={
+                            item.secondSurveyMailDate !== null
+                              ? item.secondSurveyMailDate
+                              : ""
+                          }
                           isDate
                         />
                         <DataField
                           label="Joining Letter"
-                          value={item.joiningLetterDate}
+                          value={
+                            item.joiningLetterDate !== null
+                              ? item.joiningLetterDate
+                              : ""
+                          }
                           isDate
                         />
                         <DataField
                           label="Joining Date"
-                          value={item.joiningDate}
+                          value={
+                            item.joiningDate !== null ? item.joiningDate : ""
+                          }
                           isDate
                         />
                         <DataField
                           label="Joining Location"
-                          value={item.joiningLocation}
+                          value={
+                            item.joiningLocation !== null
+                              ? item.joiningLocation
+                              : ""
+                          }
                         />
                       </div>
                     </div>

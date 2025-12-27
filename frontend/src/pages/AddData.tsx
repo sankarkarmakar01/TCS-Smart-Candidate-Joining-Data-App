@@ -2,8 +2,11 @@
 
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
+import { Input } from "@/components/Input";
+import { Select } from "@/components/Select";
+import { Textarea } from "@/components/Textarea";
 
-type Status =
+export type Status =
   | ""
   | "APPLIED"
   | "INTERVIEW_SCHEDULED"
@@ -66,11 +69,14 @@ const AddCandidatePage: React.FC = () => {
     setError(null);
 
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/add-data`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
-      });
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/add-data`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(formData),
+        }
+      );
 
       if (!response.ok) throw new Error("Failed to create candidate");
 
@@ -124,7 +130,7 @@ const AddCandidatePage: React.FC = () => {
           {/* Glass effect border */}
           <div className="absolute inset-0 rounded-3xl bg-linear-to-r from-blue-50/20 to-purple-50/20 -z-10"></div>
 
-          {/* Error Alert with animation */}
+          {/* Error Alert */}
           {error && (
             <div className="animate-shake bg-linear-to-r from-red-50 to-pink-50 border-l-4 border-red-500 text-red-700 px-6 py-4 rounded-xl text-sm font-medium shadow-md">
               <div className="flex items-center">
@@ -215,6 +221,13 @@ const AddCandidatePage: React.FC = () => {
                   icon="🗓️"
                 />
                 <Input
+                  label="Interview Location"
+                  name="interviewLocation"
+                  value={formData.interviewLocation}
+                  onChange={handleChange}
+                  icon="🏢"
+                />
+                <Input
                   type="date"
                   label="Offer Letter Date"
                   name="offerLetterDate"
@@ -230,23 +243,8 @@ const AddCandidatePage: React.FC = () => {
                   onChange={handleChange}
                   icon="📧"
                 />
-                <Input
-                  type="date"
-                  label="Joining Letter Date"
-                  name="joiningLetterDate"
-                  value={formData.joiningLetterDate}
-                  onChange={handleChange}
-                  icon="✍️"
-                />
               </div>
               <div className="space-y-7">
-                <Input
-                  label="Interview Location"
-                  name="interviewLocation"
-                  value={formData.interviewLocation}
-                  onChange={handleChange}
-                  icon="🏢"
-                />
                 <Input
                   type="date"
                   label="2nd Survey Date"
@@ -254,6 +252,14 @@ const AddCandidatePage: React.FC = () => {
                   value={formData.secondSurveyMailDate}
                   onChange={handleChange}
                   icon="📨"
+                />
+                <Input
+                  type="date"
+                  label="Joining Letter Date"
+                  name="joiningLetterDate"
+                  value={formData.joiningLetterDate}
+                  onChange={handleChange}
+                  icon="✍️"
                 />
                 <Input
                   type="date"
@@ -289,7 +295,7 @@ const AddCandidatePage: React.FC = () => {
                 {loading ? (
                   <>
                     <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
-                    <span>Creating Candidate...</span>
+                    <span>Submitting Your Information...</span>
                   </>
                 ) : (
                   <>
@@ -307,7 +313,7 @@ const AddCandidatePage: React.FC = () => {
                       ></path>
                     </svg>
                     <span className="relative">
-                      Create Candidate
+                      Submit Data
                       <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-white group-hover:w-full transition-all duration-300"></span>
                     </span>
                   </>
@@ -349,117 +355,3 @@ const AddCandidatePage: React.FC = () => {
 };
 
 export default AddCandidatePage;
-
-interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
-  label: string;
-  icon?: string;
-}
-
-const Input: React.FC<InputProps> = ({ label, icon, ...props }) => (
-  <div className="group relative flex flex-col">
-    <label className="text-xs font-semibold text-gray-500 uppercase tracking-widest mb-2 flex items-center space-x-2">
-      {icon && <span className="text-base">{icon}</span>}
-      <span>{label}</span>
-    </label>
-    <input
-      {...props}
-      className="peer px-3 py-2 md:px-5 md:py-4 rounded-xl border-2 border-gray-200 text-base font-medium text-gray-900
-                 focus:border-blue-500 focus:ring-4 focus:ring-blue-100 outline-none transition-all duration-300
-                 bg-white/50 hover:bg-white/80 placeholder-gray-400
-                 group-hover:border-gray-300 group-hover:shadow-sm"
-    />
-    <div className="absolute inset-0 rounded-xl border border-transparent peer-focus:border-blue-300 pointer-events-none transition-colors duration-300"></div>
-  </div>
-);
-
-interface TextareaProps
-  extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
-  label: string;
-  icon?: string;
-}
-
-const Textarea: React.FC<TextareaProps> = ({ label, icon, ...props }) => (
-  <div className="group relative flex flex-col">
-    <label className="text-xs font-semibold text-gray-500 uppercase tracking-widest mb-2 flex items-center space-x-2">
-      {icon && <span className="text-base">{icon}</span>}
-      <span>{label}</span>
-    </label>
-    <textarea
-      rows={4}
-      {...props}
-      className="peer px-3 py-2 md:px-5 md:py-4 rounded-xl border-2 border-gray-200 text-base font-medium text-gray-900
-                 focus:border-blue-500 focus:ring-4 focus:ring-blue-100 outline-none transition-all duration-300
-                 bg-white/50 hover:bg-white/80 placeholder-gray-400 resize-none
-                 group-hover:border-gray-300 group-hover:shadow-sm"
-    />
-    <div className="absolute inset-0 rounded-xl border border-transparent peer-focus:border-blue-300 pointer-events-none transition-colors duration-300"></div>
-  </div>
-);
-
-interface SelectProps extends React.SelectHTMLAttributes<HTMLSelectElement> {
-  label: string;
-  icon?: string;
-}
-
-const Select: React.FC<SelectProps> = ({ label, icon, value, ...props }) => {
-  const statuses: Status[] = [
-    "APPLIED",
-    "INTERVIEW_SCHEDULED",
-    "OFFERED",
-    "1ST_SURVEY_SENT",
-    "2ND_SURVEY_SENT",
-    "JOINING_LETTER_ACCEPTED",
-    "JOINED",
-    "REJECTED",
-    "PENDING",
-  ];
-
-  return (
-    <div className="group relative flex flex-col">
-      <label className="text-xs font-semibold text-gray-500 uppercase tracking-widest mb-2 flex items-center space-x-2">
-        {icon && <span className="text-base">{icon}</span>}
-        <span>{label}</span>
-      </label>
-      <div className="relative">
-        <select
-          value={value}
-          {...props}
-          className="peer w-full px-3 py-2 md:px-5 md:py-4 rounded-xl border-2 border-gray-200 text-base font-medium outline-none transition-all duration-300
-                     bg-white/50 hover:bg-white/80 appearance-none cursor-pointer
-                     group-hover:border-gray-300 group-hover:shadow-sm
-                     focus:border-blue-500 focus:ring-4 focus:ring-blue-100
-                     valid:text-gray-900
-                     [:not(:valid)]:text-gray-400"
-        >
-          <option value="" disabled>
-            --Select--
-          </option>
-
-          {statuses.map((status) => (
-            <option key={status} value={status}>
-              {status.replace(/_/g, " ")}
-            </option>
-          ))}
-        </select>
-
-        <div className="absolute right-4 top-1/2 transform -translate-y-1/2 pointer-events-none transition-transform duration-300 peer-focus:rotate-180">
-          <svg
-            className="w-5 h-5 text-gray-400"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="M19 9l-7 7-7-7"
-            />
-          </svg>
-        </div>
-      </div>
-
-      <div className="absolute inset-0 rounded-xl border border-transparent peer-focus:border-blue-300 pointer-events-none transition-colors duration-300" />
-    </div>
-  );
-};

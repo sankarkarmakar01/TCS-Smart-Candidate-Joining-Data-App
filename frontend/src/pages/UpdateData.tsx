@@ -2,6 +2,9 @@
 
 import React, { useEffect, useState } from "react";
 import { useRouter, useParams } from "next/navigation";
+import { Input } from "@/components/Input";
+import { Select } from "@/components/Select";
+import { Textarea } from "@/components/Textarea";
 
 type Status =
   | "APPLIED"
@@ -303,24 +306,14 @@ const UpdateCandidatePage: React.FC = () => {
 
           {/* Full Name & Status */}
           <section className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div className="group relative flex flex-col">
-              <label className="text-xs font-semibold text-gray-500 uppercase tracking-widest mb-2 flex items-center space-x-2">
-                <span className="text-base">👤</span>
-                <span>Full Name</span>
-              </label>
-              <input
-                type="text"
-                name="fullName"
-                value={formData.fullName}
-                onChange={handleChange}
-                required
-                className="peer px-3 py-2 md:px-5 md:py-4 rounded-xl border-2 border-gray-200 text-base font-medium text-gray-900
-                           focus:border-green-500 focus:ring-4 focus:ring-green-100 outline-none transition-all duration-300
-                           bg-white/50 hover:bg-white/80 placeholder-gray-400
-                           group-hover:border-gray-300 group-hover:shadow-sm"
-              />
-              <div className="absolute inset-0 rounded-xl border border-transparent peer-focus:border-green-300 pointer-events-none transition-colors duration-300"></div>
-            </div>
+            <Input
+              label="Full Name"
+              name="fullName"
+              value={formData.fullName}
+              onChange={handleChange}
+              required
+              icon="👤"
+            />
 
             <Select
               label="Status"
@@ -333,41 +326,20 @@ const UpdateCandidatePage: React.FC = () => {
 
           {/* Addresses */}
           <section className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div className="group relative flex flex-col">
-              <label className="text-xs font-semibold text-gray-500 uppercase tracking-widest mb-2 flex items-center space-x-2">
-                <span className="text-base">🏠</span>
-                <span>Present Address</span>
-              </label>
-              <textarea
-                rows={4}
-                name="presentAddress"
-                value={formData.presentAddress}
-                onChange={handleChange}
-                className="peer px-3 py-2 md:px-5 md:py-4 rounded-xl border-2 border-gray-200 text-base font-medium text-gray-900
-                           focus:border-green-500 focus:ring-4 focus:ring-green-100 outline-none transition-all duration-300
-                           bg-white/50 hover:bg-white/80 placeholder-gray-400 resize-none
-                           group-hover:border-gray-300 group-hover:shadow-sm"
-              />
-              <div className="absolute inset-0 rounded-xl border border-transparent peer-focus:border-green-300 pointer-events-none transition-colors duration-300"></div>
-            </div>
-
-            <div className="group relative flex flex-col">
-              <label className="text-xs font-semibold text-gray-500 uppercase tracking-widest mb-2 flex items-center space-x-2">
-                <span className="text-base">📍</span>
-                <span>Permanent Address</span>
-              </label>
-              <textarea
-                rows={4}
-                name="permanentAddress"
-                value={formData.permanentAddress}
-                onChange={handleChange}
-                className="peer px-3 py-2 md:px-5 md:py-4 rounded-xl border-2 border-gray-200 text-base font-medium text-gray-900
-                           focus:border-green-500 focus:ring-4 focus:ring-green-100 outline-none transition-all duration-300
-                           bg-white/50 hover:bg-white/80 placeholder-gray-400 resize-none
-                           group-hover:border-gray-300 group-hover:shadow-sm"
-              />
-              <div className="absolute inset-0 rounded-xl border border-transparent peer-focus:border-green-300 pointer-events-none transition-colors duration-300"></div>
-            </div>
+            <Textarea
+              label="Present Address"
+              name="presentAddress"
+              value={formData.presentAddress}
+              onChange={handleChange}
+              icon="🏠"
+            />
+            <Textarea
+              label="Permanent Address"
+              name="permanentAddress"
+              value={formData.permanentAddress}
+              onChange={handleChange}
+              icon="📍"
+            />
           </section>
 
           {/* Timeline, Survey & Joining */}
@@ -395,151 +367,70 @@ const UpdateCandidatePage: React.FC = () => {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-7">
               <div className="space-y-7">
-                <div className="group relative flex flex-col">
-                  <label className="text-xs font-semibold text-gray-500 uppercase tracking-widest mb-2 flex items-center space-x-2">
-                    <span className="text-base">🗓️</span>
-                    <span>Interview Date</span>
-                  </label>
-                  <input
-                    type="date"
-                    name="interviewDate"
-                    value={formData.interviewDate}
-                    onChange={handleChange}
-                    className="peer px-3 py-2 md:px-5 md:py-4 rounded-xl border-2 border-gray-200 text-base font-medium text-gray-900
-                               focus:border-green-500 focus:ring-4 focus:ring-green-100 outline-none transition-all duration-300
-                               bg-white/50 hover:bg-white/80 placeholder-gray-400
-                               group-hover:border-gray-300 group-hover:shadow-sm"
-                  />
-                  <div className="absolute inset-0 rounded-xl border border-transparent peer-focus:border-green-300 pointer-events-none transition-colors duration-300"></div>
-                </div>
-
-                <div className="group relative flex flex-col">
-                  <label className="text-xs font-semibold text-gray-500 uppercase tracking-widest mb-2 flex items-center space-x-2">
-                    <span className="text-base">📄</span>
-                    <span>Offer Letter Date</span>
-                  </label>
-                  <input
-                    type="date"
-                    name="offerLetterDate"
-                    value={formData.offerLetterDate}
-                    onChange={handleChange}
-                    className="peer px-3 py-2 md:px-5 md:py-4 rounded-xl border-2 border-gray-200 text-base font-medium text-gray-900
-                               focus:border-green-500 focus:ring-4 focus:ring-green-100 outline-none transition-all duration-300
-                               bg-white/50 hover:bg-white/80 placeholder-gray-400
-                               group-hover:border-gray-300 group-hover:shadow-sm"
-                  />
-                  <div className="absolute inset-0 rounded-xl border border-transparent peer-focus:border-green-300 pointer-events-none transition-colors duration-300"></div>
-                </div>
-
-                <div className="group relative flex flex-col">
-                  <label className="text-xs font-semibold text-gray-500 uppercase tracking-widest mb-2 flex items-center space-x-2">
-                    <span className="text-base">📧</span>
-                    <span>1st Survey Date</span>
-                  </label>
-                  <input
-                    type="date"
-                    name="firstSurveyMailDate"
-                    value={formData.firstSurveyMailDate}
-                    onChange={handleChange}
-                    className="peer px-3 py-2 md:px-5 md:py-4 rounded-xl border-2 border-gray-200 text-base font-medium text-gray-900
-                               focus:border-green-500 focus:ring-4 focus:ring-green-100 outline-none transition-all duration-300
-                               bg-white/50 hover:bg-white/80 placeholder-gray-400
-                               group-hover:border-gray-300 group-hover:shadow-sm"
-                  />
-                  <div className="absolute inset-0 rounded-xl border border-transparent peer-focus:border-green-300 pointer-events-none transition-colors duration-300"></div>
-                </div>
-
-                <div className="group relative flex flex-col">
-                  <label className="text-xs font-semibold text-gray-500 uppercase tracking-widest mb-2 flex items-center space-x-2">
-                    <span className="text-base">✍️</span>
-                    <span>Joining Letter Date</span>
-                  </label>
-                  <input
-                    type="date"
-                    name="joiningLetterDate"
-                    value={formData.joiningLetterDate}
-                    onChange={handleChange}
-                    className="peer px-3 py-2 md:px-5 md:py-4 rounded-xl border-2 border-gray-200 text-base font-medium text-gray-900
-                               focus:border-green-500 focus:ring-4 focus:ring-green-100 outline-none transition-all duration-300
-                               bg-white/50 hover:bg-white/80 placeholder-gray-400
-                               group-hover:border-gray-300 group-hover:shadow-sm"
-                  />
-                  <div className="absolute inset-0 rounded-xl border border-transparent peer-focus:border-green-300 pointer-events-none transition-colors duration-300"></div>
-                </div>
+                <Input
+                  type="date"
+                  label="Interview Date"
+                  name="interviewDate"
+                  value={formData.interviewDate}
+                  onChange={handleChange}
+                  icon="🗓️"
+                />
+                <Input
+                  label="Interview Location"
+                  name="interviewLocation"
+                  value={formData.interviewLocation}
+                  onChange={handleChange}
+                  icon="🏢"
+                />
+                <Input
+                  type="date"
+                  label="Offer Letter Date"
+                  name="offerLetterDate"
+                  value={formData.offerLetterDate}
+                  onChange={handleChange}
+                  icon="📄"
+                />
+                <Input
+                  type="date"
+                  label="1st Survey Date"
+                  name="firstSurveyMailDate"
+                  value={formData.firstSurveyMailDate}
+                  onChange={handleChange}
+                  icon="📧"
+                />
               </div>
-
               <div className="space-y-7">
-                <div className="group relative flex flex-col">
-                  <label className="text-xs font-semibold text-gray-500 uppercase tracking-widest mb-2 flex items-center space-x-2">
-                    <span className="text-base">🏢</span>
-                    <span>Interview Location</span>
-                  </label>
-                  <input
-                    type="text"
-                    name="interviewLocation"
-                    value={formData.interviewLocation}
-                    onChange={handleChange}
-                    className="peer px-3 py-2 md:px-5 md:py-4 rounded-xl border-2 border-gray-200 text-base font-medium text-gray-900
-                               focus:border-green-500 focus:ring-4 focus:ring-green-100 outline-none transition-all duration-300
-                               bg-white/50 hover:bg-white/80 placeholder-gray-400
-                               group-hover:border-gray-300 group-hover:shadow-sm"
-                  />
-                  <div className="absolute inset-0 rounded-xl border border-transparent peer-focus:border-green-300 pointer-events-none transition-colors duration-300"></div>
-                </div>
-
-                <div className="group relative flex flex-col">
-                  <label className="text-xs font-semibold text-gray-500 uppercase tracking-widest mb-2 flex items-center space-x-2">
-                    <span className="text-base">📨</span>
-                    <span>2nd Survey Date</span>
-                  </label>
-                  <input
-                    type="date"
-                    name="secondSurveyMailDate"
-                    value={formData.secondSurveyMailDate}
-                    onChange={handleChange}
-                    className="peer px-3 py-2 md:px-5 md:py-4 rounded-xl border-2 border-gray-200 text-base font-medium text-gray-900
-                               focus:border-green-500 focus:ring-4 focus:ring-green-100 outline-none transition-all duration-300
-                               bg-white/50 hover:bg-white/80 placeholder-gray-400
-                               group-hover:border-gray-300 group-hover:shadow-sm"
-                  />
-                  <div className="absolute inset-0 rounded-xl border border-transparent peer-focus:border-green-300 pointer-events-none transition-colors duration-300"></div>
-                </div>
-
-                <div className="group relative flex flex-col">
-                  <label className="text-xs font-semibold text-gray-500 uppercase tracking-widest mb-2 flex items-center space-x-2">
-                    <span className="text-base">🎉</span>
-                    <span>Joining Date</span>
-                  </label>
-                  <input
-                    type="date"
-                    name="joiningDate"
-                    value={formData.joiningDate}
-                    onChange={handleChange}
-                    className="peer px-3 py-2 md:px-5 md:py-4 rounded-xl border-2 border-gray-200 text-base font-medium text-gray-900
-                               focus:border-green-500 focus:ring-4 focus:ring-green-100 outline-none transition-all duration-300
-                               bg-white/50 hover:bg-white/80 placeholder-gray-400
-                               group-hover:border-gray-300 group-hover:shadow-sm"
-                  />
-                  <div className="absolute inset-0 rounded-xl border border-transparent peer-focus:border-green-300 pointer-events-none transition-colors duration-300"></div>
-                </div>
-
-                <div className="group relative flex flex-col">
-                  <label className="text-xs font-semibold text-gray-500 uppercase tracking-widest mb-2 flex items-center space-x-2">
-                    <span className="text-base">🏢</span>
-                    <span>Joining Location</span>
-                  </label>
-                  <input
-                    type="text"
-                    name="joiningLocation"
-                    value={formData.joiningLocation}
-                    onChange={handleChange}
-                    className="peer px-3 py-2 md:px-5 md:py-4 rounded-xl border-2 border-gray-200 text-base font-medium text-gray-900
-                               focus:border-green-500 focus:ring-4 focus:ring-green-100 outline-none transition-all duration-300
-                               bg-white/50 hover:bg-white/80 placeholder-gray-400
-                               group-hover:border-gray-300 group-hover:shadow-sm"
-                  />
-                  <div className="absolute inset-0 rounded-xl border border-transparent peer-focus:border-green-300 pointer-events-none transition-colors duration-300"></div>
-                </div>
+                <Input
+                  type="date"
+                  label="2nd Survey Date"
+                  name="secondSurveyMailDate"
+                  value={formData.secondSurveyMailDate}
+                  onChange={handleChange}
+                  icon="📨"
+                />
+                <Input
+                  type="date"
+                  label="Joining Letter Date"
+                  name="joiningLetterDate"
+                  value={formData.joiningLetterDate}
+                  onChange={handleChange}
+                  icon="✍️"
+                />
+                <Input
+                  type="date"
+                  label="Joining Date"
+                  name="joiningDate"
+                  value={formData.joiningDate}
+                  onChange={handleChange}
+                  icon="🎉"
+                />
+                <Input
+                  label="Joining Location"
+                  name="joiningLocation"
+                  value={formData.joiningLocation}
+                  onChange={handleChange}
+                  icon="🏢"
+                />
               </div>
             </div>
           </section>
@@ -646,73 +537,3 @@ const UpdateCandidatePage: React.FC = () => {
 };
 
 export default UpdateCandidatePage;
-
-interface SelectProps extends React.SelectHTMLAttributes<HTMLSelectElement> {
-  label: string;
-  icon?: string;
-}
-
-const Select: React.FC<SelectProps> = ({ label, icon, value, ...props }) => {
-  const statuses: Status[] = [
-    "APPLIED",
-    "INTERVIEW_SCHEDULED",
-    "OFFERED",
-    "1ST_SURVEY_SENT",
-    "2ND_SURVEY_SENT",
-    "JOINING_LETTER_ACCEPTED",
-    "JOINED",
-    "REJECTED",
-    "PENDING",
-  ];
-
-  return (
-    <div className="group relative flex flex-col">
-      <label className="text-xs font-semibold text-gray-500 uppercase tracking-widest mb-2 flex items-center space-x-2">
-        {icon && <span className="text-base">{icon}</span>}
-        <span>{label}</span>
-      </label>
-      <div className="relative">
-        <select
-          value={value}
-          {...props}
-          className="peer w-full px-3 py-2 md:px-5 md:py-4 rounded-xl border-2 border-gray-200 text-base font-medium outline-none transition-all duration-300
-                     bg-white/50 hover:bg-white/80 appearance-none cursor-pointer
-                     group-hover:border-gray-300 group-hover:shadow-sm
-                     focus:border-green-500 focus:ring-4 focus:ring-green-100
-                     valid:text-gray-900
-                     [:not(:valid)]:text-gray-400"
-        >
-          <option value="" disabled>
-            --Select--
-          </option>
-
-          {statuses.map((status) => (
-            <option key={status} value={status}>
-              {status.replace(/_/g, " ")}
-            </option>
-          ))}
-        </select>
-
-        {/* Chevron Arrow */}
-        <div className="absolute right-4 top-1/2 transform -translate-y-1/2 pointer-events-none transition-transform duration-300 peer-focus:rotate-180">
-          <svg
-            className="w-5 h-5 text-gray-400 peer-focus:text-green-500"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="M19 9l-7 7-7-7"
-            />
-          </svg>
-        </div>
-      </div>
-
-      {/* Focus glow effect */}
-      <div className="absolute inset-0 rounded-xl border border-transparent peer-focus:border-green-300 pointer-events-none transition-colors duration-300" />
-    </div>
-  );
-};

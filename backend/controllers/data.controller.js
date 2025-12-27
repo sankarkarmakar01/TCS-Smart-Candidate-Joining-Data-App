@@ -17,19 +17,7 @@ exports.addData = async (req, res) => {
       status,
     } = req.body;
 
-    if (
-      !fullName ||
-      !permanentAddress ||
-      !presentAddress ||
-      !interviewDate ||
-      !interviewLocation ||
-      !offerLetterDate ||
-      !firstSurveyMailDate ||
-      !secondSurveyMailDate ||
-      !joiningLetterDate ||
-      !joiningDate ||
-      !joiningLocation
-    ) {
+    if (!fullName || !permanentAddress || !presentAddress) {
       return res.status(400).json({
         success: false,
         message:
